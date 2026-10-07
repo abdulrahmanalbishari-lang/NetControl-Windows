@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>تم تسجيل الخروج</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: Tahoma, Arial, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            direction: rtl;
+        }
+        .box {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+        h1 {
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+        p {
+            font-size: 14px;
+            margin: 8px 0;
+            color: #e0e0e0;
+        }
+        .info {
+            margin-top: 15px;
+            font-size: 13px;
+            background: rgba(0,0,0,0.2);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .btn {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            background: #00c853;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 14px;
+        }
+        .btn:hover {
+            background: #00a844;
+        }
+        .footer {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h1>تم تسجيل الخروج بنجاح</h1>
+    <p>نشكرك على استخدام خدمة الإنترنت</p>
+
+    <div class="info">
+        <p>اسم المستخدم: <strong>$(username)</strong></p>
+        <p>مدة الاتصال: <strong>$(uptime)</strong></p>
+        <p>البيانات المستخدمة: <strong>$(bytes-out-nice)</strong></p>
+    </div>
+
+    <a class="btn" href="$(link-login)">تسجيل الدخول مرة أخرى</a>
+
+    <div class="footer">
+        <p>© 2026 النجومي للتقنية الحديثة</p>
+    </div>
+</div>
+
+</body>
+</html>

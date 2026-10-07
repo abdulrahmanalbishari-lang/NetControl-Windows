@@ -1,0 +1,325 @@
+<!DOCTYPE html>  
+<html lang="ar">  
+<head>  
+<meta charset="utf-8">  
+<title>تسجيل الدخول - الــنجومي نــت</title>  
+<meta name="viewport" content="width=device-width, initial-scale=1">  
+  
+<style>  
+body {  
+    margin: 0;  
+    padding: 0;  
+    height: 100vh;  
+    background: url('bg.jpg') no-repeat center center fixed;  
+    background-size: cover;  
+    font-family: "Tahoma", "Arial", sans-serif;  
+    direction: rtl;  
+    overflow-x: hidden; 
+}  
+  
+.overlay {  
+    position: fixed;  
+    inset: 0;  
+    background: rgba(0,0,0,0.25);  
+    z-index: 1;
+}  
+  
+.login-box {  
+    position: absolute;  
+    top: 50%;  
+    left: 50%;  
+    transform: translate(-50%, -50%);  
+    background: rgba(255,255,255,0.18);  
+    backdrop-filter: blur(8px);  
+    padding: 20px;  
+    width: 340px;  
+    border-radius: 15px;  
+    text-align: center;  
+    color: #fff;  
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);  
+    z-index: 10;
+    max-height: 95vh;
+    overflow-y: auto;
+}  
+  
+.datetime {  
+    font-size: 18px;  
+    font-weight: bold;  
+    margin-bottom: 12px;  
+    color: #000;  
+    background: rgba(255,255,255,0.7);  
+    padding: 6px 10px;  
+    border-radius: 8px;  
+}  
+  
+.welcome-text {  
+    font-size: 24px;  
+    font-weight: bold;  
+    margin-bottom: 6px;  
+    animation: colorShift 4s infinite linear;  
+}  
+@keyframes colorShift {  
+    0% { color:#ff5252; }  
+    25% { color:#ffeb3b; }  
+    50% { color:#00e5ff; }  
+    75% { color:#69f0ae; }  
+    100% { color:#ff5252; }  
+}  
+  
+.header-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 10px;
+    background: rgba(0,0,0,0.2);
+    padding: 5px 10px;
+    border-radius: 12px;
+}
+
+.network-name {  
+    font-size: 20px;  
+    font-weight: bold;  
+    animation: moveUpDown 2s infinite ease-in-out;  
+    flex-grow: 1;
+    text-align: center;
+}  
+@keyframes moveUpDown {  
+    0% { transform: translateY(0); }  
+    50% { transform: translateY(-3px); }  
+    100% { transform: translateY(0); }  
+}  
+
+/* تصميم زر تواصل مع الدعم مباشر في الأسفل */
+.support-btn {
+    display: block;
+    width: 96%;
+    padding: 10px;
+    background: linear-gradient(45deg, #00c853, #64dd17);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 12px auto 0 auto;
+    box-shadow: 0 4px 10px rgba(0,200,83,0.4);
+    transition: 0.3s;
+    animation: supportPulse 2s infinite ease-in-out;
+}
+.support-btn:hover {
+    background: linear-gradient(45deg, #00b34a, #52b202);
+}
+@keyframes supportPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+  
+.login-box input[type="text"] {  
+    width: 90%;  
+    padding: 10px;  
+    margin-bottom: 12px;  
+    border: none;  
+    border-radius: 8px;  
+    font-size: 16px;  
+    text-align: center;
+    font-weight: bold;
+}  
+
+.login-box input[type="submit"] {  
+    width: 96%;  
+    padding: 10px;  
+    background: #00c853;  
+    border: none;  
+    border-radius: 8px;  
+    font-size: 18px;  
+    color: #fff;  
+    cursor: pointer;  
+    font-weight: bold;
+    margin-bottom: 10px;
+}  
+.login-box input[type="submit"]:hover {  
+    background: #00b34a;  
+}  
+
+.sales {  
+    margin-top: 12px;  
+    padding: 10px;  
+    border-radius: 12px;  
+    background: rgba(0,0,0,0.35);  
+    box-shadow: 0 0 15px rgba(255,255,255,0.25);  
+}  
+
+@keyframes attention {
+  0% { transform: scale(1); text-shadow: 0 0 0px #ffeb3b; }
+  50% { transform: scale(1.03); text-shadow: 0 0 10px #ffeb3b; color: #fff; }
+  100% { transform: scale(1); text-shadow: 0 0 0px #ffeb3b; }
+}
+  
+.sales-title {  
+    font-size: 16px;  
+    font-weight: bold;  
+    margin-bottom: 6px;  
+    color: #ffeb3b;  
+    display: block;
+    animation: attention 2s infinite ease-in-out; 
+}  
+  
+.sales-item {  
+    font-size: 15px;  
+    font-weight: bold;  
+    margin: 6px 0;  
+    display: block;
+    animation: attention 3s infinite ease-in-out; 
+}  
+  
+.footer {  
+    margin-top: 12px;  
+    font-size: 14px;  
+    font-weight: bold;  
+}  
+</style>  
+</head>  
+  
+<body>  
+<div class="overlay"></div>  
+  
+<div class="login-box">  
+    <div class="datetime" id="datetime"></div>  
+    <div class="welcome-text">مرحبًا بكم</div>  
+    
+    <div class="header-container">
+        <div class="network-name">الــنجومي نــت 🛜</div>  
+    </div>
+  
+    <form action="$(link-login-only)" method="post" id="loginForm">  
+        <input type="text" name="username" placeholder="ادخل رقم الكرت هنا" required>  
+        <input type="submit" value="تسجيل الدخول">  
+    </form>  
+  
+    $(if error)
+    <div id="error-div" style="margin-top:10px; padding:12px; background:rgba(211, 47, 47, 0.95); color:#fff; font-weight:bold; border-radius:10px; border: 2px solid #ff5252; text-shadow: 1px 1px 2px #000; font-size: 14px;">
+        <script>
+            var err = "$(error)";
+            var displayMsg = "";
+            var lowerErr = err.toLowerCase();
+            
+            if (lowerErr.indexOf("uptime limit") !== -1 || lowerErr.indexOf("expired") !== -1) {
+                displayMsg = "🚫 عذراً، هذا الكرت منتهي الصلاحية";
+            } 
+            else if (lowerErr.indexOf("traffic") !== -1 || lowerErr.indexOf("bytes") !== -1 || lowerErr.indexOf("limit-bytes") !== -1 || lowerErr.indexOf("data limit") !== -1) {
+                displayMsg = "🚫 لقد استهلكت البيانات المتاحة";
+            } 
+            else if (lowerErr.indexOf("mac address") !== -1 || lowerErr.indexOf("mac-address") !== -1 || lowerErr.indexOf("not allowed") !== -1) {
+                displayMsg = "عذراً، هذا الكرت مربوط بجهاز آخر 🔒";
+            }
+            else if (lowerErr.indexOf("not found") !== -1 || lowerErr.indexOf("invalid") !== -1) {
+                displayMsg = "رقم الكرت غير صحيح ⚠️";
+            } 
+            else if (lowerErr.indexOf("already logged in") !== -1 || lowerErr.indexOf("active") !== -1 || lowerErr.indexOf("no more sessions") !== -1) {
+                displayMsg = "الكرت نشط في جهاز آخر 📱";
+            } 
+            else if (lowerErr.indexOf("limit") !== -1) {
+                displayMsg = "🚫 لقد استهلكت البيانات المتاحة";
+            }
+            else {
+                displayMsg = "خطأ: " + err;
+            }
+            document.write(displayMsg);
+        </script>
+    </div>
+    $(endif)
+  
+    <div class="sales">  
+        <div class="sales-title">✨ خدمة متميزة ✨</div>  
+        <div class="sales-item">سرعة فائقة وتصفح ممتع 🚀</div>  
+        <div class="sales-item">تغطية قوية وثبات دائم 💎</div>  
+        <div class="sales-item">نسعد دائماً بخدمتكم 🤝</div>  
+    </div>  
+  
+    <div class="footer">  
+        <div class="company-name">النجومي لتقنية الحديثة</div>  
+
+        <!-- زر تواصل مع الدعم مباشر أصبحت هنا تحت الميزات وقبل بيانات الاتصال -->
+        <a href="javascript:void(0);" onclick="Tawk_API && Tawk_API.maximize();" class="support-btn">
+            💬 تواصل مع الدعم مباشر
+        </a>
+
+        <div class="contact-text" style="margin-top: 10px;">📞رقم الهاتف واتساب</div>  
+        <a class="whatsapp-btn" href="tel:+14422310941" style="text-decoration:none; color:inherit;">  
+            <span style="font-size:18px;font-weight:bold;">+1 442 231 0941</span>  
+        </a>  
+    </div>  
+</div>  
+
+<audio id="errorSound" preload="auto"><source src="error.mp3" type="audio/mpeg"></audio>  
+<audio id="expiredSound" preload="auto"><source src="expired.mp3" type="audio/mpeg"></audio>
+<audio id="activeSound" preload="auto"><source src="active.mp3" type="audio/mpeg"></audio>  
+<audio id="trafficSound" preload="auto"><source src="traffic.mp3" type="audio/mpeg"></audio>  
+<audio id="macSound" preload="auto"><source src="mac.mp3" type="audio/mpeg"></audio>  
+  
+<script>  
+function updateDateTime() {  
+    const now = new Date();  
+    const days = ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];  
+    document.getElementById("datetime").innerHTML =  
+        days[now.getDay()] + " | " +  
+        now.toLocaleDateString('ar-EG') + " | " +  
+        now.toLocaleTimeString('ar-EG');  
+}  
+setInterval(updateDateTime, 1000);  
+updateDateTime();  
+
+window.onload = function() {
+    var hasError = "$(error)";
+    if (hasError) {
+        var lowerErr = hasError.toLowerCase();
+        var targetAudio;
+
+        if (lowerErr.indexOf("uptime limit") !== -1 || lowerErr.indexOf("expired") !== -1) {
+            targetAudio = document.getElementById('expiredSound');
+        }
+        else if (lowerErr.indexOf("traffic") !== -1 || lowerErr.indexOf("bytes") !== -1 || lowerErr.indexOf("limit-bytes") !== -1 || lowerErr.indexOf("data limit") !== -1) {
+            targetAudio = document.getElementById('trafficSound');
+        }
+        else if (lowerErr.indexOf("mac address") !== -1 || lowerErr.indexOf("mac-address") !== -1 || lowerErr.indexOf("not allowed") !== -1) {
+            targetAudio = document.getElementById('macSound');
+        }
+        else if (lowerErr.indexOf("not found") !== -1 || lowerErr.indexOf("invalid") !== -1) {
+            targetAudio = document.getElementById('errorSound');
+        }
+        else if (lowerErr.indexOf("already logged in") !== -1 || lowerErr.indexOf("active") !== -1 || lowerErr.indexOf("no more sessions") !== -1) {
+            targetAudio = document.getElementById('activeSound');
+        }
+        else if (lowerErr.indexOf("limit") !== -1) {
+            targetAudio = document.getElementById('trafficSound');
+        }
+
+        if (targetAudio) {
+            setTimeout(function() { 
+                targetAudio.play().catch(function(e){
+                    document.body.addEventListener('click', function() { 
+                        targetAudio.play(); 
+                    }, { once: true });
+                }); 
+            }, 500);
+        }
+    }
+}
+</script>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/6a908651f9ea923446ab5da6/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+
+</body>  
+</html>

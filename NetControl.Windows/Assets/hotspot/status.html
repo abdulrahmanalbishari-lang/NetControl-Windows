@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<title>حالة الاتصال</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root{
+    --main:#00e5ff;
+    --bg1:#0f2027;
+    --bg2:#203a43;
+    --bg3:#2c5364;
+    --wa:#25D366;
+}
+
+*{
+    box-sizing:border-box;
+    font-family:Tahoma, Arial;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    background:linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+}
+
+.card{
+    width:100%;
+    max-width:420px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(10px);
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,.4);
+}
+
+.logo{
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    color:var(--main);
+    margin-bottom:18px;
+}
+
+.status{
+    text-align:center;
+    font-size:15px;
+    margin-bottom:18px;
+    color:#b2ebf2;
+}
+
+.info{
+    background:rgba(0,0,0,.25);
+    border-radius:14px;
+    padding:15px;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    padding:8px 0;
+    border-bottom:1px dashed rgba(255,255,255,.15);
+    font-size:14px;
+}
+
+.row:last-child{border-bottom:none}
+
+.label{color:#ccc}
+.value{
+    color:#fff;
+    font-weight:bold;
+    direction:ltr;
+}
+
+.logout{
+    margin-top:18px;
+    text-align:center;
+}
+
+.logout a{
+    display:block;
+    background:var(--main);
+    color:#00323a;
+    padding:12px;
+    border-radius:12px;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+/* ===== شريط متحرك بدون اختفاء ===== */
+.ticker{
+    margin-top:18px;
+    background:linear-gradient(90deg,#00e5ff,#1fffff,#00e5ff);
+    color:#00323a;
+    border-radius:12px;
+    overflow:hidden;
+    font-weight:bold;
+    font-size:14px;
+}
+
+.ticker-track{
+    display:flex;
+    width:max-content;
+    animation:scroll 18s linear infinite;
+}
+
+.ticker-track span{
+    padding:10px 25px;
+    white-space:nowrap;
+}
+
+@keyframes scroll{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+}
+
+/* زر واتساب */
+.whatsapp{
+    margin-top:12px;
+    text-align:center;
+}
+
+.whatsapp a{
+    display:block;
+    background:var(--wa);
+    color:#fff;
+    padding:12px;
+    border-radius:12px;
+    font-weight:bold;
+    text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<audio autoplay>
+    <source src="success.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+
+    <div class="logo">⭐ النجومي نت ⭐</div>
+
+    <div class="status">✅ تم الاتصال بالإنترنت بنجاح</div>
+
+    <div class="info">
+        <div class="row"><div class="label">اسم المستخدم</div><div class="value">$(username)</div></div>
+        <div class="row"><div class="label">IP</div><div class="value">$(ip)</div></div>
+        <div class="row"><div class="label">MAC</div><div class="value">$(mac)</div></div>
+        <div class="row"><div class="label">مدة الاتصال</div><div class="value">$(uptime)</div></div>
+        <div class="row"><div class="label">التحميل</div><div class="value">$(bytes-in)</div></div>
+        <div class="row"><div class="label">الرفع</div><div class="value">$(bytes-out)</div></div>
+        <div class="row"><div class="label">الوقت المتبقي</div><div class="value">$(session-time-left)</div></div>
+        <div class="row"><div class="label">البيانات المتبقية</div><div class="value" id="remainBytes">جاري الحساب...</div></div>
+    </div>
+
+    <div class="logout">
+        <a href="$(link-logout)">🚪 تسجيل الخروج</a>
+    </div>
+
+    <div class="ticker">
+        <div class="ticker-track">
+            <span>⭐ النجومي لتقنية الحديثة ⭐ تجديد اشتراك استارلنيك ⭐ برمجة ماكروتيك ⭐</span>
+            <span>⭐ النجومي لتقنية الحديثة ⭐ تججديد اشتراك استارلنيك ⭐ برمجة ماكروتيك ⭐</span>
+        </div>
+    </div>
+
+    <div class="whatsapp">
+        <a href="https://wa.me/14422310941" target="_blank">
+            💬 تواصل معنا عبر واتساب
+        </a>
+    </div>
+
+</div>
+
+<script>
+    function formatBytesToMikrotik(bytes) {
+        if (!bytes || isNaN(bytes) || bytes <= 0) return "مفتوح";
+        
+        var k = 1024;
+        var sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+        var i = Math.floor(Math.log(bytes) / Math.log(k));
+        
+        // تقريب الرقم السداسي لعشري واحد كحد أقصى مثل نظام المايكروتك تماماً وبدون مسافات
+        var formattedValue = parseFloat((bytes / Math.pow(k, i)).toFixed(1));
+        return formattedValue + sizes[i];
+    }
+
+    // قراءة القيمة من السيرفر
+    var rawBytes = "$(remain-bytes-total)";
+    
+    // التحقق من صحة القيمة المدخلة لمنع اختفاء محتوى الصفحة في الكروت المفتوحة
+    if(rawBytes.indexOf('$') !== -1 || rawBytes.trim() === "" || rawBytes == "0") {
+        document.getElementById("remainBytes").innerHTML = "مفتوح";
+    } else {
+        document.getElementById("remainBytes").innerHTML = formatBytesToMikrotik(parseInt(rawBytes));
+    }
+</script>
+
+</body>
+</html>

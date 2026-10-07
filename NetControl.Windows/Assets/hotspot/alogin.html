@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>تم تسجيل الدخول</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root{
+    --main:#00ffcc;
+    --bg1:#0f2027;
+    --bg2:#203a43;
+    --bg3:#2c5364;
+}
+
+*{ box-sizing:border-box; }
+
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));
+    font-family:"Tahoma",Arial,sans-serif;
+    direction:rtl;
+    color:#fff;
+    overflow:hidden;
+}
+
+/* خلفية متحركة */
+.bg span{
+    position:absolute;
+    display:block;
+    width:200px;
+    height:200px;
+    background:rgba(255,255,255,0.06);
+    border-radius:50%;
+    animation:move 12s infinite alternate;
+}
+.bg span:nth-child(1){top:5%;left:10%;}
+.bg span:nth-child(2){bottom:10%;right:15%;animation-duration:16s;}
+.bg span:nth-child(3){top:55%;left:5%;width:120px;height:120px;animation-duration:8s;}
+
+@keyframes move{
+    from{transform:translateY(0);}
+    to{transform:translateY(-40px);}
+}
+
+/* الكرت */
+.card{
+    position:relative;
+    z-index:2;
+    width:92%;
+    max-width:380px;
+    background:rgba(255,255,255,0.14);
+    backdrop-filter:blur(14px);
+    border-radius:22px;
+    padding:40px 30px;
+    text-align:center;
+    box-shadow:0 25px 60px rgba(0,0,0,.45);
+}
+
+.check{
+    width:90px;
+    height:90px;
+    margin:0 auto 15px;
+    border-radius:50%;
+    background:rgba(0,255,204,0.15);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    animation:pulse 2s infinite;
+}
+.check svg{
+    width:48px;
+    height:48px;
+    fill:var(--main);
+}
+
+@keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(0,255,204,.6);}
+    70%{box-shadow:0 0 0 20px rgba(0,255,204,0);}
+    100%{box-shadow:0 0 0 0 rgba(0,255,204,0);}
+}
+
+h1{ margin:10px 0 8px; font-size:22px; }
+p{ margin:6px 0; font-size:15px; opacity:.95; }
+
+.progress{
+    margin:25px auto 0;
+    height:6px;
+    width:100%;
+    background:rgba(255,255,255,.25);
+    border-radius:10px;
+    overflow:hidden;
+}
+.progress span{
+    display:block;
+    height:100%;
+    width:35%;
+    background:linear-gradient(90deg,var(--main),#7CFF7C);
+    animation:loading 4s linear infinite;
+}
+
+@keyframes loading{
+    from{transform:translateX(-120%);}
+    to{transform:translateX(300%);}
+}
+
+.footer{ margin-top:15px; font-size:13px; opacity:.85; }
+.brand{ margin-top:5px; font-size:14px; color:var(--main); }
+</style>
+</head>
+
+<body>
+
+<div class="bg">
+    <span></span><span></span><span></span>
+</div>
+
+<div class="card">
+    <div class="check">
+        <svg viewBox="0 0 24 24">
+            <path d="M9 16.2l-3.5-3.5L4 14.2l5 5 11-11-1.5-1.5z"/>
+        </svg>
+    </div>
+
+    <h1>تم تسجيل الدخول بنجاح</h1>
+    <p>شكرًا لاستخدامك شبكتنا</p>
+    <p>نتمنى لك اتصالًا سريعًا وتجربة مميزة 🌐</p>
+
+    <div class="progress"><span></span></div>
+
+    <div class="footer">جاري الانتقال لصفحة الحالة...</div>
+    <div class="brand">⭐ الــنجومي نــت 🛜 ⭐</div>
+</div>
+
+<audio id="statusSound" preload="auto">
+    <source src="status.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+(function(){
+    let opened = false;
+
+    function openStatus(){
+        if(opened) return;
+        opened = true;
+
+        var sound = document.getElementById("statusSound");
+        sound.currentTime = 0;
+        sound.play().catch(()=>{});
+
+        // الانتقال التلقائي لصفحة الحالة بعد 500 ملي ثانية (0.5 ثانية)
+        setTimeout(function(){
+            window.location.href = '$(link-status)';
+        }, 500);
+    }
+
+    // التشغيل التلقائي بمجرد تحميل الصفحة
+    window.onload = function() {
+        openStatus();
+    };
+
+    // خيار إضافي للاستجابة السريعة عند ضغط المستخدم في أي مكان
+    document.addEventListener('click', openStatus, { once:true });
+})();
+</script>
+
+</body>
+</html>
